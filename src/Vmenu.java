@@ -6,6 +6,7 @@ public class Vmenu extends JFrame{
 
 	private JPanel panelMenu = new JPanel();
 	private JLabel comptable;
+	
 
 	public Vmenu(){
 

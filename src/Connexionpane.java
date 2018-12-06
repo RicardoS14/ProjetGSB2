@@ -79,7 +79,7 @@ public class Connexionpane extends JPanel implements ActionListener{
 				if(!tlog.getText().equals("") && !tmdp.getText().equals("")){
 					if(Modeleconnexion.connexioncomptable(tlog.getText(),tmdp.getText())){
 						vc.dispose();
-						//new Vmenu();
+						Vmenu unMenu = new Vmenu();
 						System.out.println("Connexion réussie");
 					}
 					else{

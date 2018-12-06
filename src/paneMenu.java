@@ -16,8 +16,9 @@ public class paneMenu extends JPanel implements ActionListener{
 	private JMenu menuDeconnexion = new JMenu();
 
 
+
 	public paneMenu(){
-		
+
 		//Mise en page du menu pour l'application
 		this.setBarMenu(new JMenuBar());
 		this.jMenu1 = new JMenu("Fichier");
@@ -35,7 +36,7 @@ public class paneMenu extends JPanel implements ActionListener{
 
 		//Menu Item deconnexion
 		this.menuDeconnexion = new JMenu("Deconnexion");
-		this.menuItem1.addActionListener(new ActionDeconnexion());
+		this.menuDeconnexion.addActionListener(new ActionDeconnexion());
 		this.menuDeconnexion.setPreferredSize(new Dimension(90, 28));
 		
 		this.panelMenu.setLayout(new BorderLayout());
@@ -63,7 +64,7 @@ public class paneMenu extends JPanel implements ActionListener{
 	public class Action1 implements ActionListener{
 		public void actionPerformed(ActionEvent arg){
 			if(arg.getSource()==menuItem1){
-				JPanel panel1 = new paneSelectionVisiteur().getpane();
+				JPanel unPanel = new paneSelectionVisiteur().getpane();
 			}
 		}
 	}
@@ -81,15 +82,19 @@ public class paneMenu extends JPanel implements ActionListener{
 	public class ActionDeconnexion implements ActionListener{
 		public void actionPerformed(ActionEvent a){
 			if(a.getSource()==menuDeconnexion){
-				Modeleconnexion.deconnexionBDD();
 				//Revient sur la vue de connexion
-			}
+				Vconnexion unConnexion = new Vconnexion();
+				Modeleconnexion.deconnexionBDD();
+			} 
 		}
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
+
+	
 
 }
