@@ -1,5 +1,7 @@
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
-import java.sql.PreparedStatement;
 
 
 public class Modeleconnexion {
@@ -8,12 +10,12 @@ public class Modeleconnexion {
 	private static Statement stat;
 	private static ResultSet result;
 	
-
+	
 	//methode de connexion de la base de donnée
 	public static boolean connexionBDD(){
 		boolean test;
 		try{
-			connexion = DriverManager.getConnection("jdbc:mysql://172.16.203.100/2018chevrier","rdesousa","123456");
+			connexion = DriverManager.getConnection("jdbc:mysql://172.16.203.100/2018chevrier","rchevrier","123456");
 			stat = connexion.createStatement();
 			test = true;
 		}
@@ -38,23 +40,43 @@ public class Modeleconnexion {
 		return test;
 	}
 	
+	//methode de getMD5
+	public static String getMd5(String input){ 
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5"); 
+            byte[] messageDigest = md.digest(input.getBytes()); 
+            BigInteger no = new BigInteger(1, messageDigest);  
+            String text = no.toString(16); 
+            while (text.length() < 32) { 
+            	text = "0" + text; 
+            }
+            return text; 
+		}  
+		catch (NoSuchAlgorithmException e) { 
+			throw new RuntimeException(e); 
+		} 
+	} 
+	
 	//methode de connexion du comptable
 	public static boolean connexioncomptable(String login, String mdp){
-		boolean test;
+		connexionBDD();
+		boolean test = false;
 		try{
-			PreparedStatement stat = connexion.prepareStatement("SELECT login, mdp FROM comptable WHERE login = ? AND mdp = MD5(?);");
-			stat.setString(1, login);
-			stat.setString(2, mdp);
+			PreparedStatement stat = connexion.prepareStatement("SELECT login, mdp FROM comptable;");
 			ResultSet result = stat.executeQuery();
+			result.next();
+			String loginE = result.getString(1);
+			String mdpE = result.getString(2);
+			if(loginE.equals(login) && mdpE.equals(getMd5(mdp))){
+				test = true;
+			}
 			result.close();
 			stat.close();
-			
-			test = true;
 		}
 		catch(SQLException e){
 			System.out.println("Erreur de lancement de la requete comptable !");
-			test = false;
 		}
+		deconnexionBDD();
 		return test;
 	}
 }
