@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Date;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -7,21 +10,22 @@ public class Fichevalpane extends JPanel{
 	private JPanel panel = new JPanel();
 	
 	private JTable table = new JTable();
+	private ArrayList<Fichefrais> lesFichefrais;
 	
-	public Fichevalpane(){
+	public Fichevalpane(ArrayList<Fichefrais> lesFichefrais){
+		this.lesFichefrais = lesFichefrais;
 		
-		String[] entetes = {"Nom", "Mois", "Montant", "Date-Modif", "Etat"};
+		String[] entetes = {"IdVisiteur", "Mois", "Montant", "Date-Modif", "Etat"};
 		DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
 		
-		for(int i = 0; i < .size(); i++) {
-			String nom = .get(i).getNom();
-			String mois = .get(i).getMois();
-			String montant = .get(i).getMontant();
-			String datemodif = .get(i).getDtamodif();
-			String etat = .get(i).getEtat();
+		for(int i = 0; i < lesFichefrais.size(); i++) {
+			int id = lesFichefrais.get(i).getId();
+			Date mois = lesFichefrais.get(i).getMois();
+			float montant = lesFichefrais.get(i).getMontant();
+			Date datemodif = lesFichefrais.get(i).getModif();
+			String etat = lesFichefrais.get(i).getEtat();
 			
-			Object[] ligne = {nom, mois, montant, datemodif, etat};
-			
+			Object[] ligne = {id, mois, montant, datemodif, etat};
 			tableModel.addRow(ligne);
 		}
 		
