@@ -23,8 +23,9 @@ public class paneSelectionVisiteur {
 		
 
 		//ajout des listes deroulantes dans le panel Selection Visiteur
-		List<String> ls = new ArrayList<String>(); 
-		this.listeVisiteur.setModel(new DefaultComboBoxModel(ls.toArray()));
+		List<String> ls = new ArrayList<String>();
+		ls = ModeleAppli.getVisiteurs();
+		this.listeVisiteur.add((Component) ls);
 		this.monPanel.add(listeVisiteur);
 
 		//ajout des listes deroulantes dans le panel Selection Mois

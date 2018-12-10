@@ -1,8 +1,5 @@
 import java.awt.Component;
-import java.sql.Connection;
 import java.sql.*;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -14,23 +11,26 @@ public class ModeleAppli {
 	private paneMenu visiteur;
 
 	//Recuperation de tous les visiteurs e retournant une liste de tout les noms
-	public static ArrayList<ResultSet> getVisiteurs(){
+	public static ArrayList<String> getVisiteurs(){
 
-		ArrayList<ResultSet> lesVisiteurs = new ArrayList<ResultSet>();
+		ArrayList<String> lesVisiteurs = new ArrayList<String>();
+		ArrayList<ResultSet> resultVis = new ArrayList<ResultSet>();
 
 		try {
-			PreparedStatement stat = connexion.prepareStatement("SELECT nom FROM visiteur");
-			ResultSet result = stat.executeQuery();
+			stat = connexion.createStatement();
+			result = stat.executeQuery("SELECT nom FROM visiteur");
 
-			lesVisiteurs.add(result);
+			resultVis.add(result);
+			for(ResultSet visiteur : resultVis){
+				lesVisiteurs.add(visiteur.toString());
+			}
 
 			result.close();
 			stat.close();
 		} catch (SQLException e) {
 			System.out.println("erreur dans la recuperation de tout les visiteurs");
 		}
-
-		return lesVisiteurs;	
+		return lesVisiteurs;
 	}
 	
 	//Recuperation de tout les fiches de frais saisie

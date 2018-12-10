@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -71,8 +72,8 @@ public class paneMenu extends JPanel implements ActionListener{
 
 	//Action du button dans le menu pour le suivie des fiches de frais
 	public class Action2 implements ActionListener{
-		public void actionPerformed(ActionEvent arg){
-			if(arg.getSource()==menuItem1){
+		public void actionPerformed(ActionEvent x){
+			if(x.getSource()==menuItem2){
 				
 			}
 		}
@@ -80,11 +81,18 @@ public class paneMenu extends JPanel implements ActionListener{
 
 	//Action du bouton de deconnexion 
 	public class ActionDeconnexion implements ActionListener{
+		private Object panelMenu;
+
 		public void actionPerformed(ActionEvent a){
 			if(a.getSource()==menuDeconnexion){
 				//Revient sur la vue de connexion
-				Vconnexion unConnexion = new Vconnexion();
+				
+				panelMenu = this.panelMenu;
 				Modeleconnexion.deconnexionBDD();
+				if(Modeleconnexion.deconnexionBDD()){
+					Vconnexion unConnexion = new Vconnexion();
+					((Window) this.panelMenu).dispose();
+				}
 			} 
 		}
 	}
