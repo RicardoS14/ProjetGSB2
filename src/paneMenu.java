@@ -14,14 +14,15 @@ public class paneMenu extends JPanel implements ActionListener{
 	private static JMenuBar menubar = new JMenuBar();
 	private JMenuItem menuItem1 = new JMenuItem();
 	private JMenuItem menuItem2 = new JMenuItem();
-	private JMenu menuDeconnexion = new JMenu();
-
+	private JButton menuDeconnexion = new JButton();
+	private Vmenu vm;
 
 
 	public paneMenu(){
 
+		this.vm = vm;
 		//Mise en page du menu pour l'application
-		this.setBarMenu(new JMenuBar());
+		this.menubar = new JMenuBar();
 		this.jMenu1 = new JMenu("Fichier");
 		this.jMenu1.setPreferredSize(new Dimension(90, 28));
 		
@@ -36,7 +37,7 @@ public class paneMenu extends JPanel implements ActionListener{
 		this.menuItem2.setPreferredSize(new Dimension(90, 28));
 
 		//Menu Item deconnexion
-		this.menuDeconnexion = new JMenu("Deconnexion");
+		this.menuDeconnexion = new JButton("Deconnexion");
 		this.menuDeconnexion.addActionListener(new ActionDeconnexion());
 		this.menuDeconnexion.setPreferredSize(new Dimension(90, 28));
 		
@@ -81,10 +82,10 @@ public class paneMenu extends JPanel implements ActionListener{
 
 	//Action du bouton de deconnexion 
 	public class ActionDeconnexion implements ActionListener{
-		private Object panelMenu;
+		/*private Object panelMenu;
 
 		public void actionPerformed(ActionEvent a){
-			if(a.getSource()==menuDeconnexion){
+			if(a.getSource()== menuDeconnexion){
 				//Revient sur la vue de connexion
 				
 				panelMenu = this.panelMenu;
@@ -94,6 +95,22 @@ public class paneMenu extends JPanel implements ActionListener{
 					((Window) this.panelMenu).dispose();
 				}
 			} 
+		}*/
+		public void actionperformed(ActionEvent e){
+			if(e.getSource() == menuDeconnexion){
+				Modeleconnexion.deconnexionBDD();
+				vm.dispose();
+				Vconnexion uneConnexion = new Vconnexion();
+			}
+			else{
+				System.out.println("Erreur de deconnexion!");
+			}
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 

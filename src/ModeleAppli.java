@@ -1,4 +1,3 @@
-import java.awt.Component;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -8,21 +7,21 @@ public class ModeleAppli {
 	private static Statement stat;
 	private static ResultSet result;
 	private static Connection connexion;
-	private paneMenu visiteur;
 
 	//Recuperation de tous les visiteurs e retournant une liste de tout les noms
-	public static ArrayList<String> getVisiteurs(){
+	public static ArrayList<Visiteur> getVisiteurs(){
 
-		ArrayList<String> lesVisiteurs = new ArrayList<String>();
-		ArrayList<ResultSet> resultVis = new ArrayList<ResultSet>();
+		Modeleconnexion.connexionBDD();
+		ArrayList<Visiteur> lesVisiteurs = new ArrayList<Visiteur>();
+		ArrayList<Visiteur> resultVis = new ArrayList<Visiteur>();
 
 		try {
 			stat = connexion.createStatement();
-			result = stat.executeQuery("SELECT nom FROM visiteur");
+			result = stat.executeQuery("SELECT nom,prenom FROM visiteur");
 
-			resultVis.add(result);
-			for(ResultSet visiteur : resultVis){
-				lesVisiteurs.add(visiteur.toString());
+			resultVis.add((Visiteur) result);
+			for(Visiteur visiteur : resultVis){
+				lesVisiteurs.add(visiteur);
 			}
 
 			result.close();
@@ -30,6 +29,7 @@ public class ModeleAppli {
 		} catch (SQLException e) {
 			System.out.println("erreur dans la recuperation de tout les visiteurs");
 		}
+		Modeleconnexion.deconnexionBDD();
 		return lesVisiteurs;
 	}
 	
@@ -54,4 +54,23 @@ public class ModeleAppli {
 		return lesFichefrais;
 	}
 	
+	//Recuperation des dates lors de la selection des fiches frais retournant une liste de toute les dates dans le champs mois de la table Fichefrais
+	public static ArrayList<Date> getDate(){
+		Modeleconnexion.connexionBDD();
+		ArrayList<Date> lesDates = new ArrayList<Date>();
+		int i = 0;
+		try {
+			stat = connexion.createStatement();
+			result = stat.executeQuery("Select mois From fichefrais");
+			while(result.next()){
+				lesDates.add(result.getDate(i));
+				i+=1;
+			}
+		} catch (SQLException e) {
+			System.out.println("Erreur lors de la recuperation des dates pour la section d'un visiteur!");
+		}
+		Modeleconnexion.deconnexionBDD();
+		return lesDates;
+		
+	}
 }

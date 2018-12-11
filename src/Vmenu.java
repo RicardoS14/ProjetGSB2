@@ -4,7 +4,7 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class Vmenu extends JFrame{
 
-	private JPanel panelMenu = new JPanel();
+	
 	private JLabel comptable;
 	
 
@@ -27,7 +27,6 @@ public class Vmenu extends JFrame{
 
 			//panel Menu
 			this.setContentPane(new paneMenu().getpane());
-			getContentPane().revalidate();
 
 			this.getContentPane().add(comptable);
 
