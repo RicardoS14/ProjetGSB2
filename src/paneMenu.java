@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
 
 
@@ -51,7 +50,7 @@ public class paneMenu extends JFrame implements ActionListener{
 
 		//Menu Item deconnexion
 		this.menuDeconnexion = new JButton("Deconnexion");
-		this.menuDeconnexion.addActionListener(new ActionDeconnexion());
+		//this.menuDeconnexion.addActionListener(new ActionDeconnexion());
 		this.menuDeconnexion.setPreferredSize(new Dimension(90, 28));
 		
 		this.panelMenu.setLayout(new BorderLayout());
@@ -111,8 +110,8 @@ public class paneMenu extends JFrame implements ActionListener{
 	}
 
 	//Action du bouton de deconnexion 
-	public class ActionDeconnexion implements ActionListener{
-		/*private Object panelMenu;
+	/*public class ActionDeconnexion implements ActionListener{
+		private Object panelMenu;
 
 		public void actionPerformed(ActionEvent a){
 			if(a.getSource()== menuDeconnexion){
@@ -135,20 +134,9 @@ public class paneMenu extends JFrame implements ActionListener{
 				System.out.println("Erreur de deconnexion!");
 			}
 		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
-
-	
-
 }
