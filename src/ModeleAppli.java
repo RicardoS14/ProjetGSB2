@@ -13,13 +13,13 @@ public class ModeleAppli {
 	private static Connection connexion;
 	private paneMenu visiteur;
 
-	//Recuperation de tous les visiteurs e retournant une liste de tout les noms
+	//Recuperation de tous les visiteurs et retournant une liste
 	public static ArrayList<ResultSet> getVisiteurs(){
-
+		Modeleconnexion.connexionBDD();
 		ArrayList<ResultSet> lesVisiteurs = new ArrayList<ResultSet>();
 
 		try {
-			PreparedStatement stat = connexion.prepareStatement("SELECT nom FROM visiteur");
+			PreparedStatement stat = connexion.prepareStatement("SELECT * FROM visiteur");
 			ResultSet result = stat.executeQuery();
 
 			lesVisiteurs.add(result);
@@ -29,7 +29,7 @@ public class ModeleAppli {
 		} catch (SQLException e) {
 			System.out.println("erreur dans la recuperation de tout les visiteurs");
 		}
-
+		Modeleconnexion.deconnexionBDD();
 		return lesVisiteurs;	
 	}
 	
@@ -40,7 +40,7 @@ public class ModeleAppli {
 
 		try {
 			stat = connexion.createStatement();
-			result = stat.executeQuery("SELECT * FROM fichefrais");
+			result = stat.executeQuery("SELECT * FROM fichefrais WHERE etat='CR'");
 			while(result.next()){
 				Fichefrais fiche = new Fichefrais(result.getInt(1), result.getDate(2), result.getInt(3), result.getInt(4), result.getDate(5), result.getString(6));
 				lesFichefrais.add(fiche);
@@ -52,6 +52,25 @@ public class ModeleAppli {
 		}
 		Modeleconnexion.deconnexionBDD();
 		return lesFichefrais;
-	}
+	}	
 	
+	//Recuperation de Comptable et retournant une liste
+		public static ArrayList<ResultSet> getComptable(){
+			Modeleconnexion.connexionBDD();
+			ArrayList<ResultSet> leComptable = new ArrayList<ResultSet>();
+
+			try {
+				PreparedStatement stat = connexion.prepareStatement("SELECT * FROM comptable");
+				ResultSet result = stat.executeQuery();
+
+				leComptable.add(result);
+
+				result.close();
+				stat.close();
+			} catch (SQLException e) {
+				System.out.println("erreur dans la recuperation du Comptable");
+			}
+			Modeleconnexion.deconnexionBDD();
+			return leComptable;	
+		}
 }
