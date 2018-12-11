@@ -12,6 +12,8 @@ public class Fichevalpane extends JPanel{
 	private JTable table = new JTable();
 	private ArrayList<Fichefrais> lesFichefrais;
 	
+	private JButton buton = new JButton();
+	
 	public Fichevalpane(ArrayList<Fichefrais> lesFichefrais){
 		this.lesFichefrais = lesFichefrais;
 		
@@ -24,12 +26,11 @@ public class Fichevalpane extends JPanel{
 			float montant = lesFichefrais.get(i).getMontant();
 			Date datemodif = lesFichefrais.get(i).getModif();
 			String etat = lesFichefrais.get(i).getEtat();
+			this.buton = new JButton();
 			
-			Object[] ligne = {id, mois, montant, datemodif, etat};
+			Object[] ligne = {id, mois, montant, datemodif, etat, buton};
 			tableModel.addRow(ligne);
-		}
-		
-		this.panel.add(table);
-		
+		}	
+		this.panel.add(table);	
 	}
 }

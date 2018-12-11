@@ -55,25 +55,26 @@ public class ModeleAppli {
 		return lesFichefrais;
 	}	
 	
-	//Recuperation de Comptable et retournant une liste
-		public static ArrayList<ResultSet> getComptable(){
-			Modeleconnexion.connexionBDD();
-			ArrayList<ResultSet> leComptable = new ArrayList<ResultSet>();
+	//Recuperation de Comptable et retournant un comptable
+	public static ArrayList<Comptable> getComptable(){
+		Modeleconnexion.connexionBDD();
+		ArrayList<Comptable> leComptable = new ArrayList<Comptable>();
+		ArrayList<Comptable> resultCom = new ArrayList<Comptable>();
 
-			try {
-				PreparedStatement stat = connexion.prepareStatement("SELECT * FROM comptable");
-				ResultSet result = stat.executeQuery();
+		try {
+			stat = connexion.createStatement();
+			result = stat.executeQuery("SELECT * FROM comptable");
 
-				leComptable.add(result);
+			resultCom.add((Comptable) result);
 
-				result.close();
-				stat.close();
-			} catch (SQLException e) {
-				System.out.println("erreur dans la recuperation du Comptable");
-			}
-			Modeleconnexion.deconnexionBDD();
-			return leComptable;	
+			result.close();
+			stat.close();
+		} catch (SQLException e) {
+			System.out.println("erreur dans la recuperation du Comptable");
 		}
+		Modeleconnexion.deconnexionBDD();
+		return leComptable;	
+	}
 
 	//Recuperation des dates lors de la selection des fiches frais retournant une liste de toute les dates dans le champs mois de la table Fichefrais
 	public static ArrayList<Date> getDate(){
@@ -91,8 +92,6 @@ public class ModeleAppli {
 			System.out.println("Erreur lors de la recuperation des dates pour la section d'un visiteur!");
 		}
 		Modeleconnexion.deconnexionBDD();
-		return lesDates;
-		
+		return lesDates;	
 	}
-
 }
