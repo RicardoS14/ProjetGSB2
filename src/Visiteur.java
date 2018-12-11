@@ -1,6 +1,5 @@
 import java.sql.*;
 
-
 public class Visiteur {
 
 	private int idVisiteur;

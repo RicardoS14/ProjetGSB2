@@ -1,7 +1,6 @@
 import java.sql.*;
 import java.util.ArrayList;
 
-
 public class ModeleAppli {
 
 	private static Statement stat;

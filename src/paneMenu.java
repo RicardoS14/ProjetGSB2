@@ -16,7 +16,7 @@ public class paneMenu extends JFrame implements ActionListener{
 	private static JMenuBar menubar = new JMenuBar();
 	private JMenuItem menuItem1 = new JMenuItem();
 	private JMenuItem menuItem2 = new JMenuItem();
-	private JButton menuDeconnexion = new JButton();
+	private JMenu menuDeconnexion = new JMenu();
 	private JLabel comptable;
 
 
@@ -45,12 +45,12 @@ public class paneMenu extends JFrame implements ActionListener{
 
 		//Menu Item 2
 		this.menuItem2 = new JMenuItem("Suivie");
-		this.menuItem2.addActionListener(new Action1());
+		this.menuItem2.addActionListener(new Action2());
 		this.menuItem2.setPreferredSize(new Dimension(90, 28));
 
 		//Menu Item deconnexion
-		this.menuDeconnexion = new JButton("Deconnexion");
-		//this.menuDeconnexion.addActionListener(new ActionDeconnexion());
+		this.menuDeconnexion = new JMenu("Deconnexion");
+		this.menuDeconnexion.addActionListener(new ActionDeconnexion());
 		this.menuDeconnexion.setPreferredSize(new Dimension(90, 28));
 		
 		this.panelMenu.setLayout(new BorderLayout());
@@ -110,22 +110,8 @@ public class paneMenu extends JFrame implements ActionListener{
 	}
 
 	//Action du bouton de deconnexion 
-	/*public class ActionDeconnexion implements ActionListener{
-		private Object panelMenu;
-
-		public void actionPerformed(ActionEvent a){
-			if(a.getSource()== menuDeconnexion){
-				//Revient sur la vue de connexion
-				
-				panelMenu = this.panelMenu;
-				Modeleconnexion.deconnexionBDD();
-				if(Modeleconnexion.deconnexionBDD()){
-					Vconnexion unConnexion = new Vconnexion();
-					((Window) this.panelMenu).dispose();
-				}
-			} 
-		}*/
-		public void actionperformed(ActionEvent e){
+	public class ActionDeconnexion implements ActionListener{
+		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == menuDeconnexion){
 				Modeleconnexion.deconnexionBDD();
 				Vconnexion uneConnexion = new Vconnexion();
@@ -134,6 +120,7 @@ public class paneMenu extends JFrame implements ActionListener{
 				System.out.println("Erreur de deconnexion!");
 			}
 		}
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
