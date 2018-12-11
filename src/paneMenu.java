@@ -1,5 +1,7 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,7 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
-public class paneMenu extends JPanel implements ActionListener{
+public class paneMenu extends JFrame implements ActionListener{
 	private JPanel panelMenu = new JPanel();
 	private JLabel connexion;
 	private JMenu jMenu1 = new JMenu();
@@ -15,12 +17,18 @@ public class paneMenu extends JPanel implements ActionListener{
 	private JMenuItem menuItem1 = new JMenuItem();
 	private JMenuItem menuItem2 = new JMenuItem();
 	private JButton menuDeconnexion = new JButton();
-	private Vmenu vm;
+	private JLabel comptable;
 
 
 	public paneMenu(){
 
-		this.vm = vm;
+		
+		this.setTitle("Projet GSB2");
+		this.setSize(500, 400);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		
+		
 		//Mise en page du menu pour l'application
 		this.menubar = new JMenuBar();
 		this.jMenu1 = new JMenu("Fichier");
@@ -50,6 +58,24 @@ public class paneMenu extends JPanel implements ActionListener{
 		this.menubar.add(menuDeconnexion);
 		this.panelMenu.add(menubar ,BorderLayout.PAGE_START);
 		
+		
+		//Nom du comptable connecté
+				this.comptable = new JLabel("WELCOME COMPTABLE!!!!!!");
+				Font font = new Font("Arial",Font.BOLD,30);
+				this.comptable.setFont(font);
+				this.comptable.setForeground(new Color(18,44,202));
+				this.comptable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+				/*Si connexion bdd*/
+				if(Modeleconnexion.connexionBDD()){
+
+					//panel Menu
+					this.setContentPane(new paneMenu());
+
+					this.getContentPane().add(comptable);
+
+					this.setVisible(true);
+				}
 	}
 
 	public void setBarMenu(JMenuBar barMenu) {
@@ -99,7 +125,6 @@ public class paneMenu extends JPanel implements ActionListener{
 		public void actionperformed(ActionEvent e){
 			if(e.getSource() == menuDeconnexion){
 				Modeleconnexion.deconnexionBDD();
-				vm.dispose();
 				Vconnexion uneConnexion = new Vconnexion();
 			}
 			else{
