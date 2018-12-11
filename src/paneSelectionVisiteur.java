@@ -14,6 +14,7 @@ public class paneSelectionVisiteur {
 	
 	public paneSelectionVisiteur(){
 
+		
 		//liste deroulante de tous les visiteurs
 		this.listeVisiteur = new JComboBox();
 		this.listeVisiteur.setPreferredSize(new Dimension(90, 28));
@@ -23,13 +24,14 @@ public class paneSelectionVisiteur {
 		
 
 		//ajout des listes deroulantes dans le panel Selection Visiteur
-		List<String> ls = new ArrayList<String>(); 
-		this.listeVisiteur.setModel(new DefaultComboBoxModel(ls.toArray()));
+		List<Visiteur> ls = new ArrayList<Visiteur>();
+		ls = ModeleAppli.getVisiteurs();
+		this.listeVisiteur.add((Component) ls);
 		this.monPanel.add(listeVisiteur);
 
 		//ajout des listes deroulantes dans le panel Selection Mois
 		this.monPanel.add(listeMois);
-		
+
 	}
 
 	//Methode pour recuperer ce panel de selection de visiteur et mois

@@ -1,8 +1,4 @@
-import java.awt.Component;
-import java.sql.Connection;
 import java.sql.*;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -11,18 +7,23 @@ public class ModeleAppli {
 	private static Statement stat;
 	private static ResultSet result;
 	private static Connection connexion;
-	private paneMenu visiteur;
 
-	//Recuperation de tous les visiteurs et retournant une liste
-	public static ArrayList<ResultSet> getVisiteurs(){
+
+	//Recuperation de tous les visiteurs e retournant une liste de tout les noms
+	public static ArrayList<Visiteur> getVisiteurs(){
+
 		Modeleconnexion.connexionBDD();
-		ArrayList<ResultSet> lesVisiteurs = new ArrayList<ResultSet>();
+		ArrayList<Visiteur> lesVisiteurs = new ArrayList<Visiteur>();
+		ArrayList<Visiteur> resultVis = new ArrayList<Visiteur>();
 
 		try {
-			PreparedStatement stat = connexion.prepareStatement("SELECT * FROM visiteur");
-			ResultSet result = stat.executeQuery();
+			stat = connexion.createStatement();
+			result = stat.executeQuery("SELECT nom,prenom FROM visiteur");
 
-			lesVisiteurs.add(result);
+			resultVis.add((Visiteur) result);
+			for(Visiteur visiteur : resultVis){
+				lesVisiteurs.add(visiteur);
+			}
 
 			result.close();
 			stat.close();
@@ -73,4 +74,25 @@ public class ModeleAppli {
 			Modeleconnexion.deconnexionBDD();
 			return leComptable;	
 		}
+
+	//Recuperation des dates lors de la selection des fiches frais retournant une liste de toute les dates dans le champs mois de la table Fichefrais
+	public static ArrayList<Date> getDate(){
+		Modeleconnexion.connexionBDD();
+		ArrayList<Date> lesDates = new ArrayList<Date>();
+		int i = 0;
+		try {
+			stat = connexion.createStatement();
+			result = stat.executeQuery("Select mois From fichefrais");
+			while(result.next()){
+				lesDates.add(result.getDate(i));
+				i+=1;
+			}
+		} catch (SQLException e) {
+			System.out.println("Erreur lors de la recuperation des dates pour la section d'un visiteur!");
+		}
+		Modeleconnexion.deconnexionBDD();
+		return lesDates;
+		
+	}
+
 }
