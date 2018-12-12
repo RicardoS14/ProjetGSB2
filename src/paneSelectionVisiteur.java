@@ -1,15 +1,19 @@
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class paneSelectionVisiteur {
+public class paneSelectionVisiteur implements ActionListener {
 	
-	private JPanel monPanel = new JPanel();
+	private static JPanel monPanel = new JPanel();
 	private JComboBox listeVisiteur;
 	private JComboBox listeMois;
+	private JButton valider;
 	
 	
 	public paneSelectionVisiteur(){
@@ -30,12 +34,32 @@ public class paneSelectionVisiteur {
 		this.monPanel.add(listeVisiteur);
 
 		//ajout des listes deroulantes dans le panel Selection Mois
+		List<Date> mois = new ArrayList<Date>();
+		mois = ModeleAppli.getDate();
+		this.listeMois.add((Component) mois);
 		this.monPanel.add(listeMois);
+		
+		this.valider = new JButton("Valider");
+		this.valider.addActionListener(new Action1());
+		this.valider.setPreferredSize(new Dimension(90, 28));
 
 	}
 
 	//Methode pour recuperer ce panel de selection de visiteur et mois
-	public JPanel getpane() {
+	public static JPanel getpane() {
 		return monPanel;
+	}
+
+	//renvoi sur le panel ou on affiche les fiches des frais du visiteur selectionné
+	public class Action1 implements ActionListener{
+		public void actionPerformed(ActionEvent arg){
+			if(arg.getSource() == valider){
+				
+			}
+		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
 	}
 }

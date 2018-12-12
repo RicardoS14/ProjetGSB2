@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -16,6 +18,7 @@ public class Vconnexion extends JFrame{
 		this.setSize(500, 400);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
+		
 		
 		if(Modeleconnexion.connexionBDD()){
 			setContentPane(new Connexionpane(this).getpane());

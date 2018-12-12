@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
 
@@ -20,18 +21,14 @@ public class paneMenu extends JFrame implements ActionListener{
 	private JLabel comptable;
 
 
+	@SuppressWarnings("null")
 	public paneMenu(){
 		this.setTitle("Projet GSB2");
 		this.setSize(500, 400);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
+		this.panelMenu.setBackground(new Color(237,127,16));
 
-		
-		this.setTitle("Projet GSB2");
-		this.setSize(500, 400);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLocationRelativeTo(null);
-		
 		
 		//Mise en page du menu pour l'application
 		this.menubar = new JMenuBar();
@@ -72,21 +69,30 @@ public class paneMenu extends JFrame implements ActionListener{
 
 				/*Si connexion bdd*/
 				if(Modeleconnexion.connexionBDD()){
-
+					
 					//panel Menu
 					this.setContentPane(new paneMenu());
-
-					this.getContentPane().add(comptable);
-
+					getContentPane().revalidate();
+		
+					String choixPane = null;
+					switch(choixPane){
+						case"menuItem1":
+							//Prend le panel de selection de visiteur et mois
+							this.getContentPane().add(paneSelectionVisiteur.getpane());
+							break;
+						case"valider":
+							//Prend le panel d'affichage des fiche du visiteur selectionné
+							this.getContentPane().add(PaneAfficheFicheVisiteur.getpane());
+							break;
+						case"menuItem2":
+							//Prend le panel de suivi des fiches de frais  
+							
+							break;
+						default:
+							this.getContentPane().add(comptable);
+					}
 					this.setVisible(true);
 				}
-			//panel Menu
-			this.setContentPane(new paneMenu());
-			getContentPane().revalidate();
-
-			this.getContentPane().add(comptable);
-
-			this.setVisible(true);
 		}
 		
 	
@@ -95,7 +101,8 @@ public class paneMenu extends JFrame implements ActionListener{
 	public class Action1 implements ActionListener{
 		public void actionPerformed(ActionEvent arg){
 			if(arg.getSource()==menuItem1){
-				JPanel unPanel = new paneSelectionVisiteur().getpane();
+				new paneSelectionVisiteur();
+				JPanel unPanel = paneSelectionVisiteur.getpane();
 			}
 		}
 	}
@@ -125,5 +132,8 @@ public class paneMenu extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	public JPanel getPane() {
+		return panelMenu;
 	}
 }

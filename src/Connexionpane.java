@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,7 @@ public class Connexionpane extends JPanel implements ActionListener{
 	private Vconnexion vc;
 	
 	private JPanel panelco = new JPanel();
+	
 	
 	private JTextField tlog = new JTextField();
 	private JTextField tmdp = new JTextField();
@@ -26,6 +28,8 @@ public class Connexionpane extends JPanel implements ActionListener{
 	public Connexionpane(Vconnexion vc){
 		
 		this.vc = vc;
+		
+		this.panelco.setBackground(new Color(237,127,16));
 		
 		this.panelco.add(llog);
 		this.panelco.add(tlog);
