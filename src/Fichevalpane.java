@@ -33,4 +33,8 @@ public class Fichevalpane extends JPanel{
 		}	
 		this.panel.add(table);	
 	}
+	
+	public JPanel getpane(){
+		return panel;
+	}
 }
