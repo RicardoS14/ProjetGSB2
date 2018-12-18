@@ -8,7 +8,7 @@ public class PaneAfficheFicheVisiteur {
 	private static JPanel monPanel = new JPanel();
 	
 	public PaneAfficheFicheVisiteur(){
-		
+		 
 	}
 
 	public static JPanel getpane() {
