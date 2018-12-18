@@ -70,9 +70,12 @@ public class paneMenu extends JFrame implements ActionListener{
 
 				/*Si connexion bdd*/
 				if(Modeleconnexion.connexionBDD()){
-
+					
+					//panel Menu
+					this.setContentPane(panelMenu);
 					
 					this.getContentPane().add(comptable);
+					
 					this.setVisible(true);
 				}
 		}
