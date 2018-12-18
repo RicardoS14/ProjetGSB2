@@ -19,6 +19,7 @@ public class paneMenu extends JFrame implements ActionListener{
 	private JMenuItem menuItem2 = new JMenuItem();
 	private JMenu menuDeconnexion = new JMenu();
 	private JLabel comptable;
+	private String choixPane = null;
 
 
 	@SuppressWarnings("null")
@@ -69,28 +70,9 @@ public class paneMenu extends JFrame implements ActionListener{
 
 				/*Si connexion bdd*/
 				if(Modeleconnexion.connexionBDD()){
+
 					
-					//panel Menu
-					this.setContentPane(new paneMenu());
-					getContentPane().revalidate();
-		
-					String choixPane = null;
-					switch(choixPane){
-						case"menuItem1":
-							//Prend le panel de selection de visiteur et mois
-							this.getContentPane().add(paneSelectionVisiteur.getpane());
-							break;
-						case"valider":
-							//Prend le panel d'affichage des fiche du visiteur selectionné
-							this.getContentPane().add(PaneAfficheFicheVisiteur.getpane());
-							break;
-						case"menuItem2":
-							//Prend le panel de suivi des fiches de frais  
-							
-							break;
-						default:
-							this.getContentPane().add(comptable);
-					}
+					this.getContentPane().add(comptable);
 					this.setVisible(true);
 				}
 		}
