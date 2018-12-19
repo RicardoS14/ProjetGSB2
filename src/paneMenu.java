@@ -98,8 +98,9 @@ public class paneMenu extends JFrame implements ActionListener{
 	//Action du button dans le pour la validation des fiches de frais
 		class Action1 implements ActionListener{
 			public void actionPerformed(ActionEvent arg){
-					setContentPane(new Fichevalpane(ModeleAppli.getFichefrais()).getpane());
-					getContentPane().revalidate();
+				getContentPane().removeAll();
+				setContentPane(new Fichevalpane(ModeleAppli.getFichefrais()).getpane());
+				getContentPane().revalidate();
 			}
 		}
 

@@ -7,12 +7,42 @@ public class ModeleAppli {
 	private static ResultSet result;
 	private static Connection connexion;
 	private Fichefrais fiche;
+	
+	
+	//methode de connexion de la base de donnée
+		public static boolean connexionBDD(){
+			boolean test;
+			try{
+				connexion = DriverManager.getConnection("jdbc:mysql://172.16.203.100/2018chevrier","rchevrier","123456");
+				stat = connexion.createStatement();
+				test = true;
+			}
+			catch(SQLException e){
+				System.out.println("Erreur de connection de la BDD !");
+				test = false;
+			}
+			return test;
+		}
+		
+		//methode de deconnexion de la base de donnée
+		public static boolean deconnexionBDD(){
+			boolean test;
+			try{
+				connexion.close();
+				test = true;
+			}
+			catch(SQLException e){
+				System.out.println("Erreur de deconnexion de la BDD !");
+				test = false;
+			}
+			return test;
+		}
 
 
 	//Recuperation de tous les visiteurs e retournant une liste de tout les noms
 	public static ArrayList<Visiteur> getVisiteurs(){
 
-		Modeleconnexion.connexionBDD();
+		connexionBDD();
 		ArrayList<Visiteur> lesVisiteurs = new ArrayList<Visiteur>();
 		ArrayList<Visiteur> resultVis = new ArrayList<Visiteur>();
 
@@ -30,34 +60,34 @@ public class ModeleAppli {
 		} catch (SQLException e) {
 			System.out.println("erreur dans la recuperation de tout les visiteurs");
 		}
-		Modeleconnexion.deconnexionBDD();
+		deconnexionBDD();
 		return lesVisiteurs;	
 	}
 	
 	//Recuperation de tout les fiches de frais en cours de saisie
 	public static ArrayList<Fichefrais> getFichefrais(){
-		Modeleconnexion.connexionBDD();
+		connexionBDD();
 		ArrayList<Fichefrais> lesFichefrais = new ArrayList<Fichefrais>();
 
 		try {
 			stat = connexion.createStatement();
 			result = stat.executeQuery("SELECT * FROM fichefrais WHERE idEtat='CR';");
 			while(result.next()){
-				Fichefrais fiche = new Fichefrais(result.getInt(1), result.getDate(2), result.getInt(3), result.getInt(4), result.getDate(5), result.getString(6));
+				Fichefrais fiche = new Fichefrais(result.getString(1), result.getInt(2), result.getInt(3), result.getInt(4), result.getString(5), result.getString(6));
 				lesFichefrais.add(fiche);
 			}
 			result.close();
 			stat.close();
 		} catch (SQLException e) {
-			System.out.println("erreur dans la recuperation de tout les fichefrais");
+			System.out.println("erreur dans la recuperation de tout les fichefrais : " +e);
 		}
-		Modeleconnexion.deconnexionBDD();
+		deconnexionBDD();
 		return lesFichefrais;
 	}
 	
 	//Recuperation de Comptable et retournant un comptable
 	public static ArrayList<Comptable> getComptable(){
-		Modeleconnexion.connexionBDD();
+		connexionBDD();
 		ArrayList<Comptable> leComptable = new ArrayList<Comptable>();
 		ArrayList<Comptable> resultCom = new ArrayList<Comptable>();
 
@@ -72,13 +102,13 @@ public class ModeleAppli {
 		} catch (SQLException e) {
 			System.out.println("erreur dans la recuperation du Comptable");
 		}
-		Modeleconnexion.deconnexionBDD();
+		deconnexionBDD();
 		return leComptable;	
 	}
 
 	//Recuperation des dates lors de la selection des fiches frais retournant une liste de toute les dates dans le champs mois de la table Fichefrais
 	public static ArrayList<Date> getDate(){
-		Modeleconnexion.connexionBDD();
+		connexionBDD();
 		ArrayList<Date> lesDates = new ArrayList<Date>();
 		int i = 0;
 		try {
@@ -91,7 +121,7 @@ public class ModeleAppli {
 		} catch (SQLException e) {
 			System.out.println("Erreur lors de la recuperation des dates pour la section d'un visiteur!");
 		}
-		Modeleconnexion.deconnexionBDD();
+		deconnexionBDD();
 		return lesDates;	
 	}
 }
