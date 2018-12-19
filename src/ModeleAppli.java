@@ -6,6 +6,7 @@ public class ModeleAppli {
 	private static Statement stat;
 	private static ResultSet result;
 	private static Connection connexion;
+	private Fichefrais fiche;
 
 
 	//Recuperation de tous les visiteurs e retournant une liste de tout les noms
@@ -17,7 +18,7 @@ public class ModeleAppli {
 
 		try {
 			stat = connexion.createStatement();
-			result = stat.executeQuery("SELECT nom,prenom FROM visiteur");
+			result = stat.executeQuery("SELECT * FROM visiteur;");
 
 			resultVis.add((Visiteur) result);
 			for(Visiteur visiteur : resultVis){
@@ -33,14 +34,14 @@ public class ModeleAppli {
 		return lesVisiteurs;	
 	}
 	
-	//Recuperation de tout les fiches de frais saisie
+	//Recuperation de tout les fiches de frais en cours de saisie
 	public static ArrayList<Fichefrais> getFichefrais(){
 		Modeleconnexion.connexionBDD();
 		ArrayList<Fichefrais> lesFichefrais = new ArrayList<Fichefrais>();
 
 		try {
 			stat = connexion.createStatement();
-			result = stat.executeQuery("SELECT * FROM fichefrais WHERE etat='CR'");
+			result = stat.executeQuery("SELECT * FROM fichefrais WHERE idEtat='CR';");
 			while(result.next()){
 				Fichefrais fiche = new Fichefrais(result.getInt(1), result.getDate(2), result.getInt(3), result.getInt(4), result.getDate(5), result.getString(6));
 				lesFichefrais.add(fiche);
@@ -52,7 +53,7 @@ public class ModeleAppli {
 		}
 		Modeleconnexion.deconnexionBDD();
 		return lesFichefrais;
-	}	
+	}
 	
 	//Recuperation de Comptable et retournant un comptable
 	public static ArrayList<Comptable> getComptable(){
@@ -62,7 +63,7 @@ public class ModeleAppli {
 
 		try {
 			stat = connexion.createStatement();
-			result = stat.executeQuery("SELECT * FROM comptable");
+			result = stat.executeQuery("SELECT * FROM comptable;");
 
 			resultCom.add((Comptable) result);
 
@@ -82,7 +83,7 @@ public class ModeleAppli {
 		int i = 0;
 		try {
 			stat = connexion.createStatement();
-			result = stat.executeQuery("Select mois From fichefrais");
+			result = stat.executeQuery("Select mois From fichefrais;");
 			while(result.next()){
 				lesDates.add(result.getDate(i));
 				i+=1;

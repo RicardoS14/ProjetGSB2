@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -19,7 +20,6 @@ public class paneMenu extends JFrame implements ActionListener{
 	private JMenuItem menuItem2 = new JMenuItem();
 	private JMenu menuDeconnexion = new JMenu();
 	private JLabel comptable;
-	private String choixPane = null;
 
 
 	@SuppressWarnings("null")
@@ -48,7 +48,7 @@ public class paneMenu extends JFrame implements ActionListener{
 
 		//Menu Item deconnexion
 		this.menuDeconnexion = new JMenu("Deconnexion");
-		this.menuDeconnexion.addActionListener(new ActionDeconnexion());
+		this.menuDeconnexion.addActionListener(this);
 		this.menuDeconnexion.setPreferredSize(new Dimension(90, 28));
 		
 		this.panelMenu.setLayout(new BorderLayout());
@@ -79,46 +79,36 @@ public class paneMenu extends JFrame implements ActionListener{
 					this.setVisible(true);
 				}
 		}
-		
-	
 
-	//Action du button dans le pour la validation des fiches de frais
-	public class Action1 implements ActionListener{
-		public void actionPerformed(ActionEvent arg){
-			if(arg.getSource()==menuItem1){
-				new paneSelectionVisiteur();
-				JPanel unPanel = paneSelectionVisiteur.getpane();
-			}
-		}
-	}
-
-	//Action du button dans le menu pour le suivie des fiches de frais
-	public class Action2 implements ActionListener{
-		public void actionPerformed(ActionEvent x){
-			if(x.getSource()==menuItem2){
-				
-			}
-		}
-	}
-
-	//Action du bouton de deconnexion 
-	public class ActionDeconnexion implements ActionListener{
-		public void actionPerformed(ActionEvent e){
-			if(e.getSource() == menuDeconnexion){
-				Modeleconnexion.deconnexionBDD();
-				Vconnexion uneConnexion = new Vconnexion();
-			}
-			else{
-				System.out.println("Erreur de deconnexion!");
-			}
-		}
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 	public JPanel getPane() {
 		return panelMenu;
 	}
+	
+	//Action du bouton de deconnexion 
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == menuDeconnexion){
+			System.exit(0);
+			new Vconnexion();
+		}
+		else{
+			System.out.println("Erreur de deconnexion!");
+		}
+	}
+	
+	//Action du button dans le pour la validation des fiches de frais
+		class Action1 implements ActionListener{
+			public void actionPerformed(ActionEvent arg){
+					setContentPane(new Fichevalpane(ModeleAppli.getFichefrais()).getpane());
+					getContentPane().revalidate();
+			}
+		}
+
+		//Action du button dans le menu pour le suivie des fiches de frais
+		class Action2 implements ActionListener{
+			public void actionPerformed(ActionEvent x){
+					new paneSelectionVisiteur();
+					JPanel unPanel = paneSelectionVisiteur.getpane();
+					getContentPane().revalidate();
+			}
+		}
 }
